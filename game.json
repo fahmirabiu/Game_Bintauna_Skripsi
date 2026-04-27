@@ -1,0 +1,81 @@
+{
+  "easy": {
+    "waktu": 0,
+    "jumlah_soal": 10,
+    "kosakata": {
+      "ullu": "kepala", "uto’o": "otak", "vuo’o": "rambut", "leleako": "telinga", 
+      "sinampenga": "brewok", "ahe": "rahang", "llollosovo": "ubun-ubun", 
+      "llompipiua": "pilin rambut", "vaaya": "dahi", "maata": "mata", "iihe": "kening", 
+      "uyungo": "hidung", "pusongi": "pipi", "sumako": "wajah", "viviko": "bibir", 
+      "uumi": "kumis", "ngipo": "gigi", "kuoso": "gusi", "tontollona": "jakun", 
+      "sovatu": "satu", "reiya": "dua", "tollu": "tiga", "opato": "empat", 
+      "lima": "lima", "onomo": "enam", "pitu": "tujuh", "walu": "delapan", 
+      "sio": "sembilan", "mopullu": "sepuluh", "mopullukuminsa": "sebelas", 
+      "mopullukureya": "duabelas", "mopullukutolu": "tigabelas", 
+      "mopullukuopato": "empatbelas", "mopullukulima": "limabelas", 
+      "mopullukuonomo": "enam belas", "mopullukupitu": "tujuh belas", 
+      "mopullukuwallu": "delapan belas", "mopullukusio": "sembilan belas", 
+      "reapullu": "duapuluh", "reapullukuminsa": "duapuluhsatu", 
+      "reapullukureya": "duapuluhDua", "reapullukutolu": "duapuluhtiga", 
+      "reapullukuopato": "duapuluhempat", "reapullukulima": "duapuluhlima", 
+      "reapullukuonomo": "duapuluhenam", "reapullukupitu": "duapuluhtujuh", 
+      "reapullukuwallu": "duapuluhdelapan", "reapullukusio": "duapuluhsembilan", 
+      "tollupulu": "tigapuluh", "tollupulukuminsa": "tigapuluhsatu"
+    }
+  },
+  "hard": {
+    "waktu": 40,
+    "jumlah_soal": 20,
+    "kosakata": {
+      "kongkoho’o": "tenggorokan", "rila": "lidah", "tikoko": "leher", "llongungu": "tengkuk", 
+      "oaallo": "lengan", "si’u": "siku", "llima": "tangan", "vuyambuya": "jari", 
+      "pallaro": "telapak", "vaka": "pundak", "rorovo": "dada", "tollutuko": "punggung", 
+      "ayango": "pinggang", "pangka’o": "pinggul", "tia": "perut", "yiho’o": "ketiak", 
+      "pusoro": "pusar", "tollupulukureya": "tigapuluhDua", "tollupulukutolu": "tigapuluhtiga", 
+      "tollupulukuopato": "tigapuluhempat", "tollupulukulima": "tigapuluhlima", 
+      "tollupulukuonomo": "tigapuluhenam", "tollupulukupitu": "tigapuluhtujuh", 
+      "tollupulukuwallu": "tigapuluhdelapan", "tollupulukusio": "tigapuluhsembilan", 
+      "opatopullu": "empatpuluh", "opatopulukuminsa": "empatpuluhsatu", 
+      "opatopulukureya": "empatpuluhDua", "opatopulukutolu": "empatpuluhtiga", 
+      "opatopulukuopato": "empatpuluhempat", "opatopulukulima": "empatpuluhlima", 
+      "opatopulukuonomo": "empatpuluhenam", "opatopulukupitu": "empatpuluhtujuh", 
+      "opatopulukuwallu": "empatpuluhdelapan", "opatopulukusio": "empatpuluhsembilan", 
+      "limapullu": "limapuluh", "limapulukuminsa": "limapuluhsatu", 
+      "limapulukureya": "limapuluhDua", "limapulukutolu": "limapuluhtiga", 
+      "limapulukuopato": "limapuluhempat", "limapulukulima": "limapuluhlima", 
+      "limapulukuonomo": "limapuluhenam", "limapulukupitu": "limapuluhtujuh", 
+      "limapulukuwallu": "limapuluhdelapan", "limapulukusio": "limapuluhsembilan", 
+      "onomopullu": "enampuluh", "onomopulukuminsa": "enampuluhsatu", 
+      "onomopulukureya": "enampuluhDua", "onomopulukutolu": "enampuluhtiga", 
+      "onomopulukuopato": "enampuluhempat"
+    }
+  },
+  "expert": {
+    "waktu": 20,
+    "jumlah_soal": 30,
+    "kosakata": {
+      "vuvutai": "pantat", "ullito": "kulit", "pava": "paha", "vu’u": "lutut", 
+      "vosioto": "betis", "tile": "kaki", "ukato": "urat", "intiro": "tumit", 
+      "tulla": "tulang", "ruuku": "darah", "tinai": "usus", "pusu": "jantung", 
+      "aate": "hati", "mobile": "ginjal", "vuya": "paru-paru", "onomopulukulima": "enampuluhenam", 
+      "onomopulukuonomo": "enampuluhenam", "onomopulukupitu": "enampuluhtujuh", 
+      "onomopulukuwallu": "enampuluhdelapan", "onomopulukusio": "enampuluhsembilan", 
+      "piitupullu": "tujuhpuluh", "piitupulukuminsa": "tujuhpuluhsatu", 
+      "piitupulukureya": "tujuhpuluhDua", "piitupulukutolu": "tujuhpuluhtiga", 
+      "piitupulukuopato": "tujuhpuluhempat", "piitupulukulima": "tujuhpuluhlima", 
+      "piitupulukuonomo": "tujuhpuluhenam", "piitupulukupitu": "tujuhpuluhtujuh", 
+      "piitupulukuwallu": "tujuhpuluhdelapan", "piitupulukusio": "tujuhpuluhsembilan", 
+      "wallupullu": "delapanpuluh", "wallupulukuminsa": "delapanpuluhsatu", 
+      "wallupulukureya": "delapanpuluhDua", "wallupulukutolu": "delapanpuluhtiga", 
+      "wallupulukuopato": "delapanpuluhempat", "wallupulukulima": "delapanpuluhlima", 
+      "wallupulukuonomo": "delapanpuluhenam", "wallupulukupitu": "delapanpuluhtujuh", 
+      "wallupulukuwallu": "delapanpuluhdelapan", "wallupulukusio": "delapanpuluhsembilan", 
+      "siopullu": "sembilanpuluh", "siopulukuminsa": "sembilanpuluhsatu", 
+      "siopulukureya": "sembilanpuluhDua", "siopulukutolu": "sembilanpuluhtiga", 
+      "siopulukuopato": "sembilanpuluhempat", "siopulukulima": "sembilanpuluhlima", 
+      "siopulukuonomo": "sembilanpuluhenam", "siopulukupitu": "sembilanpuluhtujuh", 
+      "siopulukuwallu": "sembilanpuluhdelapan", "siopulukusio": "sembilanpuluhsembilan", 
+      "mokasuto": "serratus"
+    }
+  }
+}
