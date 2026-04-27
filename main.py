@@ -21,7 +21,6 @@ from kivy.animation import Animation
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.widget import Widget
 from kivy.uix.scrollview import ScrollView
-
 # --- FUNGSI WARNA ---
 def hex_to_rgb(hex_code):
     hex_code = hex_code.lstrip('#')
@@ -31,7 +30,7 @@ def hex_to_rgb(hex_code):
 THEMES = {
     'light': {
         'BG_MAIN': hex_to_rgb('F8F9FA'),
-        'TEXT_MAIN': hex_to_rgb('212529'),
+        'TEXT_MAIN': hex_to_rgb('0a0a5c'),
         'TEXT_SOFT': hex_to_rgb('6C757D'),
         'SLOT_BG': hex_to_rgb('E9ECEF'),
         'ACCENT_BLUE': hex_to_rgb('4A90E2'),
@@ -43,7 +42,7 @@ THEMES = {
     },
     'dark': {
         'BG_MAIN': hex_to_rgb('121212'),
-        'TEXT_MAIN': hex_to_rgb('E0E0E0'),
+        'TEXT_MAIN': hex_to_rgb('0a0a5c'),
         'TEXT_SOFT': hex_to_rgb('A0A0A0'),
         'SLOT_BG': hex_to_rgb('2C2C2C'),
         'ACCENT_BLUE': hex_to_rgb('3A7CA5'),
@@ -55,7 +54,7 @@ THEMES = {
     }
 }
 
-CURRENT_THEME = 'light'
+CURRENT_THEME = 'dark'
 T = THEMES[CURRENT_THEME]
 Window.clearcolor = T['BG_MAIN']
 
@@ -398,7 +397,7 @@ class PilihLevelScreen(Screen):
         # Pendorong Atas agar keseluruhan menu sedikit turun ke tengah
         layout.add_widget(Label(size_hint_y=0.8))
         
-        lbl_judul = TemaLabel(text="Pilih Tingkat Kesulitan", color_key='ACCENT_BLUE', bold=True, font_size='36sp', size_hint_y=None, height=60, halign='center', valign='middle')
+        lbl_judul = TemaLabel(text="Pilih Tingkat Kesulitan", color_key='TEXT_MAIN', bold=True, font_size='36sp', size_hint_y=None, height=60, halign='center', valign='middle')
         lbl_judul.bind(size=lbl_judul.setter('text_size'))
         self.elements_to_update.append(lbl_judul)
         layout.add_widget(lbl_judul)
@@ -512,8 +511,8 @@ class GamePlayScreen(Screen):
         self.elements_to_update.extend([self.lbl_tingkat, self.lbl_timer])
         self.layout_utama.add_widget(box_header)
         
-        self.lbl_petunjuk = TemaLabel(text="Apa bahasa Bintauna dari:", color_key='TEXT_MAIN', font_size='18sp', size_hint_y=0.1)
-        self.lbl_arti = TemaLabel(text="", color_key='ACCENT_BLUE', bold=True, font_size='28sp', size_hint_y=0.2)
+        self.lbl_petunjuk = TemaLabel(text="Apa bahasa Bintauna dari:", color_key='TEXT_MAIN', font_size='24sp', size_hint_y=0.1)
+        self.lbl_arti = TemaLabel(text="", color_key='TEXT_MAIN', bold=True, font_size='28sp', size_hint_y=0.2)
         self.elements_to_update.extend([self.lbl_petunjuk, self.lbl_arti])
         self.layout_utama.add_widget(self.lbl_petunjuk)
         self.layout_utama.add_widget(self.lbl_arti)
@@ -691,7 +690,6 @@ class GamePlayScreen(Screen):
         self.elements_to_update = []
         self.add_widget(Image(source='bg.png', fit_mode='fill'))
         
-        # --- JURUS PALING AMAN MEMANGGIL SUARA & DETEKTIF ---
         app = App.get_running_app()
         
         print("\n--- DETEKTIF AUDIO ---")
@@ -704,7 +702,6 @@ class GamePlayScreen(Screen):
         else:
             print("Laporan GAGAL: File audio tidak terbaca oleh Kivy!")
         print("----------------------\n")
-        # ----------------------------------------------------
         
         if self.level_aktif == 'easy':
             app.progress['hard_unlocked'] = True
@@ -755,7 +752,7 @@ class PengaturanScreen(Screen):
         # Pendorong Atas
         layout.add_widget(Label(size_hint_y=0.5))
         
-        lbl_judul = TemaLabel(text="Pengaturan", color_key='ACCENT_BLUE', bold=True, font_size='36sp', size_hint_y=None, height=60, halign='center', valign='middle')
+        lbl_judul = TemaLabel(text="Pengaturan", color_key='TEXT_MAIN', bold=True, font_size='36sp', size_hint_y=None, height=60, halign='center', valign='middle')
         lbl_judul.bind(size=lbl_judul.setter('text_size'))
         self.elements_to_update.append(lbl_judul)
         layout.add_widget(lbl_judul)
@@ -908,7 +905,7 @@ class MenuScreen(Screen):
         layout.add_widget(box_top)
 
         # JUDUL APLIKASI
-        lbl_judul = TemaLabel(text="Belajar Bahasa Daerah", color_key='ACCENT_BLUE', bold=True, font_size='45sp', size_hint_y=0.3)
+        lbl_judul = TemaLabel(text="Belajar Bahasa Daerah", color_key='TEXT_MAIN', bold=True, font_size='45sp', size_hint_y=0.3)
         lbl_sub = TemaLabel(text="Game edukasi", color_key='TEXT_MAIN', font_size='18sp', size_hint_y=0.1)
         self.elements_to_update.extend([lbl_judul, lbl_sub])
         layout.add_widget(lbl_judul)
