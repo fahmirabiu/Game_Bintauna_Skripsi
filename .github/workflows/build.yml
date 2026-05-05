@@ -1,27 +1,53 @@
 name: Build Android APK
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04  # <--- INI YANG KITA UBAH (Menggunakan mesin server versi stabil)
+    runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout
+      - name: Checkout Kode Anda
         uses: actions/checkout@v4
 
-      - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
+      - name: Siapkan Java 17
+        uses: actions/setup-java@v4
         with:
-          command: buildozer android debug
-          buildozer_version: master
+          distribution: 'temurin'
+          java-version: '17'
 
-      - name: Upload artifacts
+      - name: Siapkan Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Alat Perakit Kivy (Buildozer)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
+          pip install buildozer cython==0.29.33 virtualenv
+      - name: Membuat Konfigurasi Bersih
+        run: |
+          rm -f buildozer.spec
+          buildozer init
+          python -c "
+          with open('buildozer.spec', 'r') as f:
+              spec = f.read()
+          spec = spec.replace('title = My Application', 'title = Game Bintauna')
+          spec = spec.replace('package.name = myapp', 'package.name = bintauna')
+          spec = spec.replace('package.domain = org.test', 'package.domain = org.ichsan')
+          spec = spec.replace('source.include_exts = py,png,jpg,kv,atlas', 'source.include_exts = py,png,jpg,kv,atlas,json,mp3,wav')
+          spec = spec.replace('requirements = python3,kivy', 'requirements = python3,kivy==2.3.0')
+          spec = spec.replace('android.archs = arm64-v8a, armeabi-v7a', 'android.archs = arm64-v8a')
+          with open('buildozer.spec', 'w') as f:
+              f.write(spec)
+          "
+      - name: Merakit APK Android (Otomatis Jawab Yes)
+        run: yes | buildozer android debug
+
+      - name: Simpan Hasil APK
         uses: actions/upload-artifact@v4
         with:
-          name: package
-          path: ${{ steps.buildozer.outputs.filename }}
+          name: Game-Bintauna-APK
+          path: bin/*.apk
