@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04  # <--- INI YANG KITA UBAH (Menggunakan mesin server versi stabil)
 
     steps:
       - name: Checkout
@@ -18,7 +18,7 @@ jobs:
         id: buildozer
         with:
           command: buildozer android debug
-          buildozer_version: main
+          buildozer_version: master
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
