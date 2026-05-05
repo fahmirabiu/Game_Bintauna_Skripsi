@@ -266,78 +266,111 @@ class BelajarScreen(Screen):
         self.index_kata = 0
         self.siapkan_kata()
 
-        layout_utama = BoxLayout(padding=20)
-        kartu = KartuBelajar() 
-        
-        # --- 1. JUDUL KARTU ---
-        lbl_judul_belajar = TemaLabel(text="BELAJAR", color_key='TEXT_MAIN', bold=True, font_size='36sp', size_hint_y=None, height=50, halign='center', valign='middle')
+        # Layout utama: vertikal sederhana, semua elemen fixed-height
+        # agar tidak ada tumpang tindih antara judul, kategori, dan kosakata
+        layout = BoxLayout(
+            orientation='vertical',
+            padding=[20, 30, 20, 20],
+            spacing=12
+        )
+
+        # --- JUDUL ---
+        lbl_judul_belajar = TemaLabel(
+            text="BELAJAR", color_key='TEXT_MAIN', bold=True,
+            font_size='32sp', size_hint_y=None, height=50,
+            halign='center', valign='middle'
+        )
         lbl_judul_belajar.bind(size=lbl_judul_belajar.setter('text_size'))
         self.elements_to_update.append(lbl_judul_belajar)
-        kartu.add_widget(lbl_judul_belajar)
-        
-        # --- 2. AREA KONTEN TENGAH (Diubah menjadi Vertikal untuk Layar HP) ---
-        konten_kartu = BoxLayout(orientation='vertical', spacing=10, size_hint_y=0.7)
-        
-        # PANEL ATAS: DAFTAR KATEGORI
-        panel_kategori = BoxLayout(orientation='vertical', size_hint_y=0.35, spacing=5)
-        
-        lbl_kategori = TemaLabel(text="KATEGORI", color_key='TEXT_MAIN', bold=True, font_size='18sp', size_hint_y=None, height=28, halign='center')
+        layout.add_widget(lbl_judul_belajar)
+
+        # --- LABEL KATEGORI ---
+        lbl_kategori = TemaLabel(
+            text="KATEGORI", color_key='TEXT_MAIN', bold=True,
+            font_size='18sp', size_hint_y=None, height=28,
+            halign='center', valign='middle'
+        )
         lbl_kategori.bind(size=lbl_kategori.setter('text_size'))
         self.elements_to_update.append(lbl_kategori)
-        panel_kategori.add_widget(lbl_kategori)
-        
-        grid_kategori = GridLayout(cols=3, spacing=10)
+        layout.add_widget(lbl_kategori)
+
+        # --- GRID TOMBOL KATEGORI ---
+        grid_kategori = GridLayout(
+            cols=3, spacing=10,
+            size_hint_y=None, height=100
+        )
         daftar_kategori = ["angka", "organ_tubuh", "tumbuhan"]
         for kat in daftar_kategori:
-            btn_kat = TombolEstetik(text=kat.replace('_', '\n').upper(), color_key='ACCENT_BLUE')
-            btn_kat.font_size = '14sp' # Agar muat di HP
+            btn_kat = TombolEstetik(
+                text=kat.replace('_', '\n').upper(),
+                color_key='ACCENT_BLUE'
+            )
+            btn_kat.font_size = '13sp'
             btn_kat.bind(on_release=lambda instance, k=kat: self.ganti_kategori(k))
             self.elements_to_update.append(btn_kat)
             grid_kategori.add_widget(btn_kat)
-            
-        panel_kategori.add_widget(grid_kategori)
-        konten_kartu.add_widget(panel_kategori)
+        layout.add_widget(grid_kategori)
 
-        # SPASI
-        konten_kartu.add_widget(Label(size_hint_y=0.1))
-
-        # PANEL TENGAH: KONTEN KOSAKATA
-        self.box_kata = BoxLayout(orientation='vertical', size_hint_y=0.4, spacing=10)
-        self.lbl_indo = TemaLabel(text="", color_key='ACCENT_BLUE', bold=True, font_size='26sp', halign='center', valign='middle')
+        # --- AREA KOSAKATA (teks Indonesia dan Bintauna) ---
+        self.box_kata = BoxLayout(
+            orientation='vertical',
+            spacing=8,
+            size_hint_y=1  # ambil sisa ruang layar
+        )
+        self.lbl_indo = TemaLabel(
+            text="", color_key='ACCENT_BLUE', bold=True,
+            font_size='26sp', halign='center', valign='middle'
+        )
         self.lbl_indo.bind(size=self.lbl_indo.setter('text_size'))
-        self.lbl_bintauna = TemaLabel(text="", color_key='TEXT_MAIN', bold=True, font_size='22sp', halign='center', valign='middle')
+        self.lbl_bintauna = TemaLabel(
+            text="", color_key='TEXT_MAIN', bold=True,
+            font_size='22sp', halign='center', valign='middle'
+        )
         self.lbl_bintauna.bind(size=self.lbl_bintauna.setter('text_size'))
         self.elements_to_update.extend([self.lbl_indo, self.lbl_bintauna])
         self.box_kata.add_widget(self.lbl_indo)
         self.box_kata.add_widget(self.lbl_bintauna)
-        konten_kartu.add_widget(self.box_kata)
+        layout.add_widget(self.box_kata)
 
-        # PANEL BAWAH: NAVIGASI
-        box_navigasi = BoxLayout(orientation='horizontal', size_hint_y=None, height=70, spacing=20, size_hint_x=0.8, pos_hint={'center_x': 0.5})
-        btn_prev = TombolEstetik(text="<", color_key='ACCENT_BLUE', bentuk='circle', size_hint=(None, None), size=(60, 60), pos_hint={'center_y': 0.5})
+        # --- NAVIGASI PREV / NEXT ---
+        box_navigasi = BoxLayout(
+            orientation='horizontal',
+            size_hint_y=None, height=70,
+            spacing=20,
+            size_hint_x=0.8, pos_hint={'center_x': 0.5}
+        )
+        btn_prev = TombolEstetik(
+            text="<", color_key='ACCENT_BLUE', bentuk='circle',
+            size_hint=(None, None), size=(60, 60),
+            pos_hint={'center_y': 0.5}
+        )
         btn_prev.bind(on_release=self.prev_kata)
         self.elements_to_update.append(btn_prev)
         
-        btn_next = TombolEstetik(text=">", color_key='ACCENT_BLUE', bentuk='circle', size_hint=(None, None), size=(60, 60), pos_hint={'center_y': 0.5})
+        btn_next = TombolEstetik(
+            text=">", color_key='ACCENT_BLUE', bentuk='circle',
+            size_hint=(None, None), size=(60, 60),
+            pos_hint={'center_y': 0.5}
+        )
         btn_next.bind(on_release=self.next_kata)
         self.elements_to_update.append(btn_next)
         
         box_navigasi.add_widget(btn_prev)
-        box_navigasi.add_widget(Label()) # Penyeimbang tengah
+        box_navigasi.add_widget(Label())  # penyeimbang tengah
         box_navigasi.add_widget(btn_next)
-        konten_kartu.add_widget(box_navigasi)
+        layout.add_widget(box_navigasi)
 
-        kartu.add_widget(konten_kartu)
-        
-        # --- 3. TOMBOL KEMBALI ---
-        btn_kembali = TombolEstetik(text="Kembali", color_key='WRONG', size_hint=(None, None), size=(200, 60), pos_hint={'center_x': 0.5})
+        # --- TOMBOL KEMBALI ---
+        btn_kembali = TombolEstetik(
+            text="Kembali", color_key='WRONG',
+            size_hint_y=None, height=55,
+            size_hint_x=0.55, pos_hint={'center_x': 0.5}
+        )
         btn_kembali.bind(on_release=lambda x: setattr(self.manager, 'current', 'menu'))
         self.elements_to_update.append(btn_kembali)
-        kartu.add_widget(btn_kembali)
-        
-        layout_utama.add_widget(kartu)
-        self.add_widget(layout_utama)
-        
+        layout.add_widget(btn_kembali)
+
+        self.add_widget(layout)
         self.update_tampilan_kata()
 
     def siapkan_kata(self):
@@ -726,67 +759,88 @@ class PengaturanScreen(Screen):
         self.elements_to_update = []
         self.app = App.get_running_app()
         self.add_widget(Image(source='bg.png', fit_mode='fill'))
-        
-        layout = BoxLayout(orientation='vertical', padding=40, spacing=15)
-        
-        # Pendorong Atas Diperkecil
-        layout.add_widget(Label(size_hint_y=0.1))
-        
-        lbl_judul = TemaLabel(text="Pengaturan", color_key='TEXT_MAIN', bold=True, font_size='36sp', size_hint_y=None, height=60, halign='center', valign='middle')
+
+        from kivy.uix.anchorlayout import AnchorLayout
+        anchor = AnchorLayout(anchor_x='center', anchor_y='center')
+
+        # Semua elemen pakai size_hint_y=None (fixed height) agar BoxLayout
+        # tidak salah hitung posisi dan tidak overlap
+        layout = BoxLayout(
+            orientation='vertical',
+            padding=[40, 0, 40, 0],
+            spacing=16,
+            size_hint=(1, None),
+            height=520  # total tinggi semua elemen + spacing
+        )
+
+        lbl_judul = TemaLabel(
+            text="Pengaturan", color_key='TEXT_MAIN', bold=True,
+            font_size='36sp', size_hint_y=None, height=70,
+            halign='center', valign='middle'
+        )
         lbl_judul.bind(size=lbl_judul.setter('text_size'))
         self.elements_to_update.append(lbl_judul)
         layout.add_widget(lbl_judul)
 
-        # Spasi sedikit di bawah judul
-        layout.add_widget(Label(size_hint_y=0.1))
-
-        # Tombol Musik
-        self.btn_musik = TombolEstetik(text="", size_hint_y=None, height=60, size_hint_x=0.6, pos_hint={'center_x': 0.5})
+        # Tombol Audio ON/OFF
+        self.btn_musik = TombolEstetik(
+            text="", size_hint_y=None, height=60,
+            size_hint_x=0.65, pos_hint={'center_x': 0.5}
+        )
         self.update_tombol_musik()
         self.btn_musik.bind(on_release=self.toggle_musik)
         self.elements_to_update.append(self.btn_musik)
         layout.add_widget(self.btn_musik)
 
-        # Spasi antara tombol Audio dan slider Volume
-        layout.add_widget(Label(size_hint_y=0.05))
-
-        box_vol = BoxLayout(orientation='vertical', size_hint_y=None, height=90, size_hint_x=0.6, pos_hint={'center_x': 0.5}, spacing=5)
-        self.lbl_vol = TemaLabel(text=f"Volume BGM: {int(self.app.volume_level * 100)}%", color_key='TEXT_MAIN', font_size='20sp', size_hint_y=0.5, halign='center', valign='bottom')
+        # Label Volume - fixed height, tidak overlap dengan slider
+        self.lbl_vol = TemaLabel(
+            text=f"Volume BGM: {int(self.app.volume_level * 100)}%",
+            color_key='TEXT_MAIN', font_size='18sp',
+            size_hint_y=None, height=32,
+            halign='center', valign='middle'
+        )
         self.lbl_vol.bind(size=self.lbl_vol.setter('text_size'))
         self.elements_to_update.append(self.lbl_vol)
-        box_vol.add_widget(self.lbl_vol)
+        layout.add_widget(self.lbl_vol)
 
-        slider = Slider(min=0, max=1, value=self.app.volume_level, size_hint_y=0.5)
+        # Slider Volume - fixed height
+        slider = Slider(
+            min=0, max=1, value=self.app.volume_level,
+            size_hint_y=None, height=50,
+            size_hint_x=0.65, pos_hint={'center_x': 0.5}
+        )
         slider.bind(value=self.ubah_volume)
-        box_vol.add_widget(slider)
-        
-        layout.add_widget(box_vol)
+        layout.add_widget(slider)
 
-        # Spasi sedikit sebelum tombol Tentang Kami
-        layout.add_widget(Label(size_hint_y=0.1))
-
-        btn_tentang = TombolEstetik(text="Tentang Kami", color_key='ACCENT_SAGE', size_hint_y=None, height=60, size_hint_x=0.6, pos_hint={'center_x': 0.5})
+        btn_tentang = TombolEstetik(
+            text="Tentang Kami", color_key='ACCENT_SAGE',
+            size_hint_y=None, height=60,
+            size_hint_x=0.65, pos_hint={'center_x': 0.5}
+        )
         btn_tentang.bind(on_release=self.tampilkan_tentang)
         self.elements_to_update.append(btn_tentang)
         layout.add_widget(btn_tentang)
 
-        btn_keluar = TombolEstetik(text="Keluar Aplikasi", color_key='WRONG', size_hint_y=None, height=60, size_hint_x=0.6, pos_hint={'center_x': 0.5})
+        btn_keluar = TombolEstetik(
+            text="Keluar Aplikasi", color_key='WRONG',
+            size_hint_y=None, height=60,
+            size_hint_x=0.65, pos_hint={'center_x': 0.5}
+        )
         btn_keluar.bind(on_release=lambda x: App.get_running_app().stop())
         self.elements_to_update.append(btn_keluar)
         layout.add_widget(btn_keluar)
 
-        # Pendorong Tengah Diperkecil
-        layout.add_widget(Label(size_hint_y=0.1))
-
-        btn_kembali = TombolEstetik(text="Kembali", color_key='ACCENT_SAGE', size_hint_y=None, height=60, size_hint_x=0.5, pos_hint={'center_x': 0.5})
+        btn_kembali = TombolEstetik(
+            text="Kembali", color_key='ACCENT_SAGE',
+            size_hint_y=None, height=60,
+            size_hint_x=0.55, pos_hint={'center_x': 0.5}
+        )
         btn_kembali.bind(on_release=lambda x: setattr(self.manager, 'current', 'menu'))
         self.elements_to_update.append(btn_kembali)
         layout.add_widget(btn_kembali)
-        
-        # Pendorong Bawah Diperkecil
-        layout.add_widget(Label(size_hint_y=0.1))
-        
-        self.add_widget(layout)
+
+        anchor.add_widget(layout)
+        self.add_widget(anchor)
 
     def tampilkan_tentang(self, instance):
         content = BoxLayout(orientation='vertical', padding=10, spacing=15)
@@ -880,10 +934,8 @@ class MenuScreen(Screen):
         layout.add_widget(box_top)
 
         # JUDUL APLIKASI
-        lbl_judul = TemaLabel(text="Belajar Bahasa Daerah", color_key='TEXT_MAIN', bold=True, font_size='32sp', size_hint_y=0.3, halign='center', valign='middle')
-        lbl_judul.bind(size=lbl_judul.setter('text_size'))
-        lbl_sub = TemaLabel(text="Game edukasi", color_key='TEXT_MAIN', font_size='18sp', size_hint_y=0.1, halign='center', valign='middle')
-        lbl_sub.bind(size=lbl_sub.setter('text_size'))
+        lbl_judul = TemaLabel(text="Belajar Bahasa Daerah", color_key='TEXT_MAIN', bold=True, font_size='45sp', size_hint_y=0.3)
+        lbl_sub = TemaLabel(text="Game edukasi", color_key='TEXT_MAIN', font_size='18sp', size_hint_y=0.1)
         self.elements_to_update.extend([lbl_judul, lbl_sub])
         layout.add_widget(lbl_judul)
         layout.add_widget(lbl_sub)
