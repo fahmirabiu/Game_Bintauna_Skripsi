@@ -775,7 +775,7 @@ class PengaturanScreen(Screen):
         # Pendorong Tengah Diperkecil
         layout.add_widget(Label(size_hint_y=0.1))
 
-        btn_kembali = TombolEstetik(text="Kembali", color_key='TEXT_MAIN', size_hint_y=None, height=60, size_hint_x=0.5, pos_hint={'center_x': 0.5})
+        btn_kembali = TombolEstetik(text="Kembali", color_key='ACCENT_SAGE', size_hint_y=None, height=60, size_hint_x=0.5, pos_hint={'center_x': 0.5})
         btn_kembali.bind(on_release=lambda x: setattr(self.manager, 'current', 'menu'))
         self.elements_to_update.append(btn_kembali)
         layout.add_widget(btn_kembali)
