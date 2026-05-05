@@ -270,18 +270,18 @@ class BelajarScreen(Screen):
         kartu = KartuBelajar() 
         
         # --- 1. JUDUL KARTU ---
-        lbl_judul_belajar = TemaLabel(text="BELAJAR", color_key='TEXT_MAIN', bold=True, font_size='36sp', size_hint_y=None, height=60, halign='center', valign='middle')
+        lbl_judul_belajar = TemaLabel(text="BELAJAR", color_key='TEXT_MAIN', bold=True, font_size='36sp', size_hint_y=None, height=50, halign='center', valign='middle')
         lbl_judul_belajar.bind(size=lbl_judul_belajar.setter('text_size'))
         self.elements_to_update.append(lbl_judul_belajar)
         kartu.add_widget(lbl_judul_belajar)
         
         # --- 2. AREA KONTEN TENGAH (Diubah menjadi Vertikal untuk Layar HP) ---
-        konten_kartu = BoxLayout(orientation='vertical', spacing=15, size_hint_y=0.7)
+        konten_kartu = BoxLayout(orientation='vertical', spacing=10, size_hint_y=0.7)
         
         # PANEL ATAS: DAFTAR KATEGORI
-        panel_kategori = BoxLayout(orientation='vertical', size_hint_y=0.3, spacing=10)
+        panel_kategori = BoxLayout(orientation='vertical', size_hint_y=0.35, spacing=5)
         
-        lbl_kategori = TemaLabel(text="KATEGORI", color_key='TEXT_MAIN', bold=True, font_size='20sp', size_hint_y=None, height=30, halign='center')
+        lbl_kategori = TemaLabel(text="KATEGORI", color_key='TEXT_MAIN', bold=True, font_size='18sp', size_hint_y=None, height=28, halign='center')
         lbl_kategori.bind(size=lbl_kategori.setter('text_size'))
         self.elements_to_update.append(lbl_kategori)
         panel_kategori.add_widget(lbl_kategori)
@@ -747,7 +747,10 @@ class PengaturanScreen(Screen):
         self.elements_to_update.append(self.btn_musik)
         layout.add_widget(self.btn_musik)
 
-        box_vol = BoxLayout(orientation='vertical', size_hint_y=None, height=80, size_hint_x=0.6, pos_hint={'center_x': 0.5})
+        # Spasi antara tombol Audio dan slider Volume
+        layout.add_widget(Label(size_hint_y=0.05))
+
+        box_vol = BoxLayout(orientation='vertical', size_hint_y=None, height=90, size_hint_x=0.6, pos_hint={'center_x': 0.5}, spacing=5)
         self.lbl_vol = TemaLabel(text=f"Volume BGM: {int(self.app.volume_level * 100)}%", color_key='TEXT_MAIN', font_size='20sp', size_hint_y=0.5, halign='center', valign='bottom')
         self.lbl_vol.bind(size=self.lbl_vol.setter('text_size'))
         self.elements_to_update.append(self.lbl_vol)
@@ -877,8 +880,10 @@ class MenuScreen(Screen):
         layout.add_widget(box_top)
 
         # JUDUL APLIKASI
-        lbl_judul = TemaLabel(text="Belajar Bahasa Daerah", color_key='TEXT_MAIN', bold=True, font_size='45sp', size_hint_y=0.3)
-        lbl_sub = TemaLabel(text="Game edukasi", color_key='TEXT_MAIN', font_size='18sp', size_hint_y=0.1)
+        lbl_judul = TemaLabel(text="Belajar Bahasa Daerah", color_key='TEXT_MAIN', bold=True, font_size='32sp', size_hint_y=0.3, halign='center', valign='middle')
+        lbl_judul.bind(size=lbl_judul.setter('text_size'))
+        lbl_sub = TemaLabel(text="Game edukasi", color_key='TEXT_MAIN', font_size='18sp', size_hint_y=0.1, halign='center', valign='middle')
+        lbl_sub.bind(size=lbl_sub.setter('text_size'))
         self.elements_to_update.extend([lbl_judul, lbl_sub])
         layout.add_widget(lbl_judul)
         layout.add_widget(lbl_sub)
